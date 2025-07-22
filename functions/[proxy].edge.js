@@ -5,7 +5,8 @@ export default async function handler(request) {
     "::1",              // IPv6 localhost
     "192.168.1.100",    // Sample local network IP
     "10.0.0.50",        // Sample private network IP
-    "172.16.0.10",      // Sample private network IP      // Replace with your actual allowed IP addresses
+    "172.16.0.10", 
+    "103.121.153.150"     // Sample private network IP      // Replace with your actual allowed IP addresses
   ]; // Replace with your actual allowed IP addresses
 
   // Get the client's IP address (as sent by the platform)
