@@ -10,8 +10,7 @@ export default async function handler(request) {
   ]; 
 
   // Get the client's IP address (as sent by the platform)
-//   const clientIP = request.headers.get("x-forwarded-for") || "";
-  const clientIP = request.headers.get("cf-connecting-ip") || "";
+  const clientIP = request.headers.get("x-forwarded-for") || "";
   const clientIPList = clientIP.split(",").map(ip => ip.trim()); 
 
 
