@@ -2,33 +2,6 @@ import Image from "next/image";
 import { headers } from 'next/headers';
 
 export default async function Home() {
-  // Get the current URL directly from the request
-  const getBaseUrl = async () => {
-    try {
-      const headersList = await headers();
-      // Try to get the full request URL from headers
-      const referer = headersList.get('referer');
-      const host = headersList.get('host');
-      const protocol = headersList.get('x-forwarded-proto') || 'http';
-      
-      if (referer) {
-        const url = new URL(referer);
-        return `${url.protocol}//${url.host}`;
-      }
-      
-      if (host) {
-        return `${protocol}://${host}`;
-      }
-    } catch (error) {
-      // Fallback if headers are not available
-    }
-    
-    // Fallback for development
-    return 'http://localhost:3000';
-  };
-  
-  // const baseUrl = await getBaseUrl();
-  // const curlCommand = `curl -H "X-Forwarded-For: 192.168.1.100" ${baseUrl}/`;
   
   return (
     <div className="font-sans min-h-screen bg-gradient-to-br from-purple-50 to-white">

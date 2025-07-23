@@ -5,8 +5,7 @@ export default async function handler(request) {
     "::1",            
     "192.168.1.100",    
     "10.0.0.50",        
-    "172.16.0.10", 
-    "103.91.88.246"     
+    "172.16.0.10"     
   ]; 
 
   // Get the client's IP address (as sent by the platform)
