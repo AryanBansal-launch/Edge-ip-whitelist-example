@@ -14,9 +14,6 @@ export default async function handler(request) {
   const clientIPList = clientIP.split(",").map(ip => ip.trim()); 
 
 
-  // Log for reference
-  console.log("All headers:", Object.fromEntries(request.headers.entries()));
-
   // Check if any forwarded IP is in the allowed list
   const allowed = clientIPList.some(ip => allowedIPs.includes(ip));
   console.log("Access allowed:", allowed);
@@ -28,6 +25,5 @@ export default async function handler(request) {
 
   // Continue with normal logic if IP is allowed
   // ... your normal edge function logic here ...
-  console.log("Access granted - proceeding with request");
   return fetch(request);
 }
