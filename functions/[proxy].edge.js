@@ -13,13 +13,26 @@ export default async function handler(request) {
   const clientIP = request.headers.get("x-forwarded-for") || "";
   const clientIPList = clientIP.split(",").map(ip => ip.trim()); // handle multiple IPs (proxies etc)
 
+  // Debug: Check all possible IP headers
+  const xForwardedFor = request.headers.get("x-forwarded-for");
+  const xRealIP = request.headers.get("x-real-ip");
+  const cfConnectingIP = request.headers.get("cf-connecting-ip");
+  const trueClientIP = request.headers.get("true-client-ip");
+
   // Log for reference
-  console.log("Client IPs:", clientIPList);
+  console.log("=== IP DEBUGGING ===");
+  console.log("X-Forwarded-For:", xForwardedFor);
+  console.log("X-Real-IP:", xRealIP);
+  console.log("CF-Connecting-IP:", cfConnectingIP);
+  console.log("True-Client-IP:", trueClientIP);
+  console.log("Client IPs (parsed):", clientIPList);
   console.log("Allowed IPs:", allowedIPs);
+  console.log("All headers:", Object.fromEntries(request.headers.entries()));
 
   // Check if any forwarded IP is in the allowed list
   const allowed = clientIPList.some(ip => allowedIPs.includes(ip));
   console.log("Access allowed:", allowed);
+  console.log("=== END DEBUGGING ===");
 
   if (!allowed) {
     console.log("Access denied - IP not in whitelist");
