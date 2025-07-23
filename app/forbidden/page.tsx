@@ -12,20 +12,20 @@ export default function ForbiddenPage() {
             Access Forbidden
           </h1>
           <p className="text-gray-600 text-lg mb-8">
-            Sorry, you don&apos;t have permission to access this resource. 
-            This could be due to user agent restrictions or other access controls.
+            Sorry, your IP address is not in the whitelist. 
+            This application is restricted to specific IP addresses for security purposes.
           </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-purple-100">
           <h2 className="text-xl font-semibold text-purple-800 mb-4">
-            Possible Reasons:
+            IP Whitelist Restrictions:
           </h2>
           <ul className="text-gray-700 space-y-2 text-left">
-            <li>• User agent restrictions</li>
-            <li>• IP-based access controls</li>
-            <li>• Authentication required</li>
-            <li>• Rate limiting exceeded</li>
+            <li>• Your IP address is not in the allowed list</li>
+            <li>• Only whitelisted IPs can access this resource</li>
+            <li>• Contact administrator to add your IP</li>
+            <li>• Check if you&apos;re using a VPN or proxy</li>
           </ul>
         </div>
 
@@ -38,7 +38,7 @@ export default function ForbiddenPage() {
           </Link>
           
           <div className="text-sm text-gray-500">
-            <p>If you believe this is an error, please contact support.</p>
+            <p>If you believe this is an error, please contact support with your IP address.</p>
           </div>
         </div>
       </div>

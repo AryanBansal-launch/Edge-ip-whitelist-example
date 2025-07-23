@@ -27,11 +27,27 @@ export default async function Home() {
     return 'http://localhost:3000';
   };
   
-  const baseUrl = await getBaseUrl();
-  const curlCommand = `curl -H "X-Forwarded-For: 192.168.1.100" ${baseUrl}/`;
+  // const baseUrl = await getBaseUrl();
+  // const curlCommand = `curl -H "X-Forwarded-For: 192.168.1.100" ${baseUrl}/`;
   
   return (
     <div className="font-sans min-h-screen bg-gradient-to-br from-purple-50 to-white">
+      {/* IP Whitelist Success Notification */}
+      <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-0">
+        <div className="flex items-center">
+          <div className="flex-shrink-0">
+            <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <div className="ml-3">
+            <p className="text-sm text-green-700">
+              <span className="font-medium">Access Granted!</span> Your IP address is whitelisted and you can access this resource.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-8 py-16">
         <main className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Contentstack Logo */}
@@ -96,91 +112,6 @@ export default async function Home() {
               secure perimeters around your applications and APIs.
             </p>
             
-            <div className="grid md:grid-cols-2 gap-6 mt-8">
-              <div className="bg-purple-50 rounded-lg p-6">
-                <h4 className="text-purple-800 font-semibold mb-3">IP Access Management</h4>
-                <ul className="text-gray-700 space-y-2">
-                  <li>• Whitelist trusted IP addresses</li>
-                  <li>• Blacklist malicious IPs</li>
-                  <li>• Geo-based access control</li>
-                  <li>• Real-time IP validation</li>
-                </ul>
-              </div>
-              
-              <div className="bg-purple-50 rounded-lg p-6">
-                <h4 className="text-purple-800 font-semibold mb-3">Use Cases</h4>
-                <ul className="text-gray-700 space-y-2">
-                  <li>• API security and protection</li>
-                  <li>• Admin panel access control</li>
-                  <li>• DDoS attack prevention</li>
-                  <li>• Compliance and audit trails</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Test Section */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8 border border-purple-100">
-            <h3 className="text-2xl font-semibold text-purple-800 mb-4">
-              Test Your IP Access Control
-            </h3>
-            <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              Use the curl commands below to test how your Edge Function responds to different IP addresses. 
-              Try different IPs to see how the whitelist and blacklist behave.
-            </p>
-            
-            <div className="space-y-4 mb-6">
-              <div className="bg-gray-900 rounded-lg p-6">
-                <div className="mb-2">
-                  <span className="text-green-400 text-sm font-mono">Whitelisted IP Test</span>
-                </div>
-                <code className="text-green-400 font-mono text-sm break-all">
-                  curl -H &quot;X-Forwarded-For: 127.0.0.1&quot; {baseUrl}/
-                </code>
-                <p className="text-gray-400 text-xs mt-2">
-                  Should return 200 OK (localhost is whitelisted)
-                </p>
-              </div>
-
-              <div className="bg-gray-900 rounded-lg p-6">
-                <div className="mb-2">
-                  <span className="text-red-400 text-sm font-mono">Blocked IP Test</span>
-                </div>
-                <code className="text-red-400 font-mono text-sm break-all">
-                  curl -H &quot;X-Forwarded-For: 8.8.8.8&quot; {baseUrl}/
-                </code>
-                <p className="text-gray-400 text-xs mt-2">
-                  Should return 403 Forbidden (Google DNS not in whitelist)
-                </p>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                <h4 className="text-green-800 font-semibold mb-2">Whitelisted IPs</h4>
-                <ul className="text-sm text-green-700 space-y-1">
-                  <li>• 127.0.0.1 (localhost)</li>
-                  <li>• 192.168.1.100</li>
-                  <li>• 10.0.0.50</li>
-                </ul>
-              </div>
-              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-                <h4 className="text-red-800 font-semibold mb-2">Blocked IPs</h4>
-                <ul className="text-sm text-red-700 space-y-1">
-                  <li>• 8.8.8.8 (Google DNS)</li>
-                  <li>• 1.1.1.1 (Cloudflare)</li>
-                  <li>• Any other IP</li>
-                </ul>
-              </div>
-              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                <h4 className="text-blue-800 font-semibold mb-2">Headers Used</h4>
-                <ul className="text-sm text-blue-700 space-y-1">
-                  <li>• X-Forwarded-For</li>
-                  <li>• X-Real-IP</li>
-                  <li>• CF-Connecting-IP</li>
-                </ul>
-              </div>
-            </div>
           </div>
 
           {/* Learn More Button */}

@@ -1,42 +1,30 @@
 export default async function handler(request) {
   // Define your whitelisted IPs
   const allowedIPs = [
-    "127.0.0.1",        // Localhost for development
-    "::1",              // IPv6 localhost
-    "192.168.1.100",    // Sample local network IP
-    "10.0.0.50",        // Sample private network IP
+    "127.0.0.1",        
+    "::1",            
+    "192.168.1.100",    
+    "10.0.0.50",        
     "172.16.0.10", 
-    "103.91.88.246"     // Sample private network IP      // Replace with your actual allowed IP addresses
-  ]; // Replace with your actual allowed IP addresses
+    "103.91.88.246"     
+  ]; 
 
   // Get the client's IP address (as sent by the platform)
-  const clientIP = request.headers.get("x-forwarded-for") || "";
-  const clientIPList = clientIP.split(",").map(ip => ip.trim()); // handle multiple IPs (proxies etc)
+//   const clientIP = request.headers.get("x-forwarded-for") || "";
+  const clientIP = request.headers.get("cf-connecting-ip") || "";
+  const clientIPList = clientIP.split(",").map(ip => ip.trim()); 
 
-  // Debug: Check all possible IP headers
-  const xForwardedFor = request.headers.get("x-forwarded-for");
-  const xRealIP = request.headers.get("x-real-ip");
-  const cfConnectingIP = request.headers.get("cf-connecting-ip");
-  const trueClientIP = request.headers.get("true-client-ip");
 
   // Log for reference
-  console.log("=== IP DEBUGGING ===");
-  console.log("X-Forwarded-For:", xForwardedFor);
-  console.log("X-Real-IP:", xRealIP);
-  console.log("CF-Connecting-IP:", cfConnectingIP);
-  console.log("True-Client-IP:", trueClientIP);
-  console.log("Client IPs (parsed):", clientIPList);
-  console.log("Allowed IPs:", allowedIPs);
   console.log("All headers:", Object.fromEntries(request.headers.entries()));
 
   // Check if any forwarded IP is in the allowed list
   const allowed = clientIPList.some(ip => allowedIPs.includes(ip));
   console.log("Access allowed:", allowed);
-  console.log("=== END DEBUGGING ===");
 
   if (!allowed) {
     console.log("Access denied - IP not in whitelist");
-    return new Response("Forbidden", { status: 403 });
+    return new Response("Forbidden. Your IP is not in the whitelist.", { status: 403 });
   }
 
   // Continue with normal logic if IP is allowed
